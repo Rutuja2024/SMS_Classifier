@@ -3,6 +3,7 @@ import pickle
 import string
 from nltk.corpus import stopwords
 import nltk
+import os
 nltk.download('punkt')
 nltk.download('stopwords')
 
@@ -36,7 +37,14 @@ def transform_text(text):
     return " ".join(y)
 
 
-tfidf = pickle.load(open('vectorizer.pkl','rb'))
+# Construct the absolute file path
+file_path = os.path.join(os.path.dirname(__file__), 'vectorizer.pkl')
+
+# Load the pickle file
+with open(file_path, 'rb') as file:
+    tfidf = pickle.load(file)
+
+# tfidf = pickle.load(open('vectorizer.pkl','rb'))
 model = pickle.load(open('model.pkl','rb'))
 
 st.title("Email/SMS Spam Classifier")
